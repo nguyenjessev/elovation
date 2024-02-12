@@ -19,6 +19,8 @@
           <% if @game.allow_ties %>
             <th><abbr title='Ties'>T</abbr></th>
           <% end %>
+          <th><abbr title='Total Games'>G</abbr></th>
+          <th><abbr title='Win Percentage'>Pct</abbr></th>
         </tr>
       </thead>
 
@@ -27,6 +29,9 @@
           <% opponent = rating.player %>
           <% wins = @player.wins(@game, opponent) %>
           <% losses = @player.results.losses.for_game(@game).against(opponent).size %>
+          <% total_games = wins + losses %>
+          <% win_pct = total_games > 0 ? sprintf("%.3f", (wins.to_f / total_games).round(3)) : "-" %>
+          <% win_pct = wins == total_games ? win_pct : win_pct[1..-1] %>
           <tr class="<%= "unplayed" if @player != opponent and wins == 0 and losses == 0 %>" >
             <td>
               <%= link_to opponent do %>
@@ -41,13 +46,17 @@
               <% if @game.allow_ties %>
                 <td><%= @player.ties(@game, opponent) %></td>
               <% end %>
+              <td><%= total_games %></td>
+              <td><%= win_pct %></td>
             <% else %>
-              <td>–</td>
+              <td><%= rating.value %></td>
               <td>–</td>
               <td>–</td>
                 <% if @game.allow_ties %>
                     <td>–</td>
                 <% end %>
+              <td>-</td>
+              <td>-</td>
             <% end %>
           </tr>
 
@@ -74,7 +83,7 @@
             Lost to <strong><%= result.winners.map(&:name).join(", ") %></strong>
           <% end %>
           <% if result.most_recent? -%>
-            <%= link_to "Delete", game_result_path(@game, result), class: "btn btn-danger", method: :delete, confirm: "Are you sure?" %>
+            <%= link_to "Delete", game_result_path(@game, result), class: "btn btn-danger", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
           <% end -%>
         </li>
       <% end %>

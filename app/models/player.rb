@@ -59,4 +59,17 @@ class Player < ApplicationRecord
   def wins(game, opponent)
     results.where(game_id: game, teams: { rank: Team::FIRST_PLACE_RANK }).against(opponent).to_a.count { |r| !r.tie? }
   end
+
+  def total_games(game)
+    total_wins(game) + results.for_game(game).losses.size
+  end
+
+  def win_pct(game)
+    pct = total_wins(game).to_f / total_games(game)
+    if pct == 1
+      sprintf("%.3f", pct.round(3))
+    else
+      sprintf("%.3f", pct.round(3))[1..-1]
+    end
+  end
 end

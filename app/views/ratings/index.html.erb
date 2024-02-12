@@ -4,11 +4,13 @@
       <tr>
         <th>Player</th>
         <th>Rating</th>
-        <th>W</th>
-        <th>L</th>
+        <th><abbr title="Wins">W</abbr></th>
+        <th><abbr title="Losses">L</abbr></th>
         <% if @game.allow_ties %>
-          <th>T</th>
+          <th><abbr title="Ties">T</abbr></th>
         <% end %>
+        <th><abbr title="Total Games">G</abbr></th>
+        <th><abbr title="Win Percentage">Pct</abbr></th>
       </tr>
     </thead>
     <tbody>

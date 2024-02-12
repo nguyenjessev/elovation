@@ -14,6 +14,10 @@
  *= require_self
  */
 
+ :root {
+  --system-ui: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
 .row:before, .row:after, .row-fluid:before, .row-fluid:after {
   content: '';
   display: table;
@@ -75,7 +79,7 @@
 
 html {
   font-size: 62.5%;
-  font-family: "IBM Plex Mono", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  font-family: var(--system-ui); }
 
 body {
   background-color: #f9f9f9;

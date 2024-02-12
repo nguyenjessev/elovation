@@ -11,4 +11,6 @@
   <% if @game.allow_ties %>
     <td><%= rating.player.total_ties(rating.game) %></td>
   <% end %>
+  <td><%= rating.player.total_games(rating.game) %></td>
+  <td><%= rating.player.win_pct(rating.game) %></td>
 </tr>
